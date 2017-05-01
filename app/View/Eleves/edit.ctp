@@ -7,5 +7,4 @@ echo $this->Form->input('prenom',array('value' => $eleve['Eleve']['prenom']));
 echo $this->Form->input('dob',array('value' => $eleve['Eleve']['dob']));
 echo $this->Form->end('Modifier l\'éléve');
 
-print_r($eleve);
 ?>

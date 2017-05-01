@@ -2,14 +2,22 @@
 class ElevesController extends AppController {
     var $name = 'Eleves';
     var $helpers = array ('Html','Form');
-    public $uses=array('Eleve');
+    public $uses=array('Eleve','Note');
 
 
     public function index()
     {
     		$eleve=$this->Eleve->find('all');
+            
     		$this->set('eleves',$eleve);
+          
     }
+           
+            
+        
+
+    
+    
 
 
 
@@ -19,6 +27,7 @@ class ElevesController extends AppController {
          if (!empty($this->data)) {
             if ($this->Eleve->save($this->data)) {
                 $this->flash('Votre eleve a été sauvegardé.','/eleves');
+                return $this->redirect('/eleves');
 
               
             }
@@ -31,6 +40,8 @@ class ElevesController extends AppController {
     {
         $this->Eleve->delete($id_eleve);
         $this->flash('L\'éleve à été supprimé.','/eleves');
+         return $this->redirect('/eleves');
+
     
     }
 
@@ -41,14 +52,26 @@ class ElevesController extends AppController {
          if (!empty($this->data)) {
             if ($this->Eleve->save($this->data)) {
                 $this->flash('Votre eleve a été modifié.','/eleves');
+                 return $this->redirect('/eleves');
 
               
             }
         }
     }
 
-    public function addNote()
+    public function addNote($id_eleve)
     {
+        $this->Eleve->id = $id_eleve;
+        $this->set('eleve', $this->Eleve->read());
+
+       if (!empty($this->data)) {
+            if ($this->Note->save($this->data)) {
+                $this->flash('Votre note a été sauvegardé.','/eleves');
+                return $this->redirect('/eleves');
+
+              
+            }
+        }
 
     }
 }
